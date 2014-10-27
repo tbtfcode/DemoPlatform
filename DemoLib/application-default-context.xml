@@ -23,11 +23,11 @@
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 
-  <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
-    <property name="basePackage"               value="${mapper-interface-package}" />
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+		<property name="basePackage"               value="${mapper-interface-package}" />
 		<property name="annotationClass"           value="org.springframework.stereotype.Repository" />
-    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-  </bean>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
 
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="defaultEncoding" value="UTF-8" />
