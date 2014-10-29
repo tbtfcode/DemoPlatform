@@ -48,7 +48,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${domain-common}</groupId>
-			<artifactId>${project_name}</artifactId>
+			<artifactId>${library-project_name}</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
