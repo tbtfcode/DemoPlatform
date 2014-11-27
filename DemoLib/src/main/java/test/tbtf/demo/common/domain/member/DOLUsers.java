@@ -21,6 +21,8 @@ public class DOLUsers extends DOLBaseDomain {
 
 	private String userName;
 
+	private String userCurrentEmail;
+
 	/**
 	 * @return the userId
 	 */
@@ -47,6 +49,20 @@ public class DOLUsers extends DOLBaseDomain {
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	/**
+	 * @return the userCurrentEmail
+	 */
+	public String getUserCurrentEmail() {
+		return userCurrentEmail;
+	}
+
+	/**
+	 * @param userCurrentEmail the userCurrentEmail to set
+	 */
+	public void setUserCurrentEmail(String userCurrentEmail) {
+		this.userCurrentEmail = userCurrentEmail;
 	}
 
 }

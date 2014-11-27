@@ -259,15 +259,26 @@
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>COLUMN_2</columnName>
-          <logicalName>Column2</logicalName>
+          <columnName>USER_ATTRIBUTE_KEY</columnName>
+          <logicalName>user_attribute_key</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
-            <name>INT</name>
-            <logicalName>Integer</logicalName>
-            <supportSize>false</supportSize>
-            <type>4</type>
+            <name>VARCHAR</name>
+            <logicalName>String</logicalName>
+            <supportSize>true</supportSize>
+            <type>12</type>
           </columnType>
-          <size>10</size>
+          <size>30</size>
+          <notNull>true</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>USER_ATTRIBUTE_VALUE</columnName>
+          <logicalName>user_attribute_value</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
+          <size>300</size>
           <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
