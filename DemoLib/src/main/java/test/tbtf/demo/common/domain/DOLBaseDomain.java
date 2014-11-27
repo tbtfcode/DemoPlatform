@@ -6,8 +6,12 @@ package test.tbtf.demo.common.domain;
 import java.io.Serializable;
 
 /**
- * @author rnb205
- * 
+ * @project DemoLib
+ * @package test.tbtf.demo.common.domain
+ * @file DOLBaseDomain.java
+ * @date 2014. 11. 17.
+ * @author tbtf.base.code@gmail.com
+ * @description
  */
 public class DOLBaseDomain implements Serializable {
 
