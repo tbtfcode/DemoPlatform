@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<context:component-scan base-package="test.tbtf.demo.manager" />
+<!--
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="create*"            propagation="REQUIRED" />
+			<tx:method name="save*"              propagation="REQUIRED" />
+			<tx:method name="update*"            propagation="REQUIRED" />
+			<tx:method name="delete*"            propagation="REQUIRED" />
+			<tx:method name="add*"               propagation="REQUIRED" />
+			<tx:method name="request*"           propagation="REQUIRED" />
+			<tx:method name="capture*"           propagation="REQUIRED" />
+			<tx:method name="cancel*"            propagation="REQUIRED" />
+			<tx:method name="redeem*"            propagation="REQUIRED" />
+			<tx:method name="register*"          propagation="REQUIRED" />
+			<tx:method name="*" read-only="true" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+		<aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Service.*(..))" />
+	</aop:config>
+-->
+	<bean id="loggingAspect" class="test.tbtf.demo.manager.handler.DOMLoggingAspect" />
+
+	<aop:config>
+		<aop:aspect ref="loggingAspect">
+			<aop:pointcut id="loggingPointcut" expression="execution(* *..controller.*Controller.*(..))" />
+			<aop:before method="beforeLogging" pointcut-ref="loggingPointcut" />
+			<aop:after  method="afterLogging"  pointcut-ref="loggingPointcut" />
+			<!-- aop:around method="aroundLogging" pointcut-ref="loggingPointcut" / -->
+		</aop:aspect>
+	</aop:config>
+
+	<!-- @deprecated bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" / -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean class="test.tbtf.demo.manager.handler.DOMHandlerInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- @deprecated bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" / -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" />
+
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html;charset=UTF-8"/>
+				<entry key="atom" value="application/atom+xml"/>
+				<entry key="json" value="application/json;charset=UTF-8"/>
+			</map>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+					<property name="order" value="0"/>
+				</bean>
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="order" value="1"/>
+					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+					<property name="cache" value="true" />
+					<property name="prefix" value="/WEB-INF/view/" />
+					<property name="suffix" value=".jsp" />
+				</bean>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+					<property name="prefixJson" value="false" />
+				</bean>
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+					<property name="marshaller">
+						<bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+							<property name="autodetectAnnotations" value="true" />
+						</bean>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<mvc:default-servlet-handler />
+
+</beans>
