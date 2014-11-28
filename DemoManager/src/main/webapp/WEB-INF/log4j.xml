@@ -2,6 +2,16 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
+	<appender name="TRACE_LOGGER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${env.logging.path}/log/demo.manage.TRACE.log" />
+		<param name="Append" value="true" />
+		<param name="Threshold" value="DEBUG" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="|%-5p|%d{ABSOLUTE}|DEMO|LOCALHOST|DEV|%c{1}:%4L|%m%n" />
+		</layout>
+	</appender>
+
 	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="|%-5p|%d{ABSOLUTE}|DEMO|LOCALHOST|DEV|%c{1}:%4L|%m%n" />
@@ -33,6 +43,7 @@
 	<root>
 <!-- OFF < FATAL < ERROR < WARN < INFO < DEBUG < TRACE < ALL -->
 		<priority value="DEBUG" />
+		<appender-ref ref="TRACE_LOGGER" />
 	</root>
 
 </log4j:configuration>

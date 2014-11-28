@@ -73,11 +73,11 @@
                   <supportSize>true</supportSize>
                   <type>12</type>
                 </columnType>
-                <size>10</size>
+                <size>32</size>
                 <notNull>true</notNull>
                 <primaryKey>true</primaryKey>
-                <description>1) USER_ID는 암호화 처리&#xd;
-2) USER_PW는 대칭키로 사용한다.</description>
+                <description>USER_ID is encrypt by MD5&#xd;
+※. USER_PW, using a symmetiric key USER_ID, and encrypt MD5.</description>
                 <autoIncrement>false</autoIncrement>
                 <defaultValue></defaultValue>
               </net.java.amateras.db.visual.model.ColumnModel>
@@ -132,7 +132,12 @@
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>USER_COUNTRY_CODE</columnName>
                 <logicalName>user_country_code</logicalName>
-                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+                <columnType class="net.java.amateras.db.dialect.ColumnType">
+                  <name>VARCHAR</name>
+                  <logicalName>String</logicalName>
+                  <supportSize>true</supportSize>
+                  <type>12</type>
+                </columnType>
                 <size>10</size>
                 <notNull>true</notNull>
                 <primaryKey>false</primaryKey>
@@ -143,7 +148,7 @@
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>USER_PHONE_NUMBER</columnName>
                 <logicalName>user_phone_number</logicalName>
-                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[5]/columnType"/>
                 <size>30</size>
                 <notNull>false</notNull>
                 <primaryKey>false</primaryKey>
@@ -154,7 +159,7 @@
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>USER_CURRENT_EMAIL</columnName>
                 <logicalName>user_current_email</logicalName>
-                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[5]/columnType"/>
                 <size>100</size>
                 <notNull>false</notNull>
                 <primaryKey>false</primaryKey>
@@ -251,10 +256,10 @@
           <columnName>USER_ID</columnName>
           <logicalName>user_id</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../sourceConnections/net.java.amateras.db.visual.model.ForeignKeyModel/target/columns/net.java.amateras.db.visual.model.ColumnModel/columnType"/>
-          <size>10</size>
+          <size>32</size>
           <notNull>true</notNull>
           <primaryKey>true</primaryKey>
-          <description></description>
+          <description>encrypted by MD5</description>
           <autoIncrement>false</autoIncrement>
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
