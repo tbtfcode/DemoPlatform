@@ -41,6 +41,19 @@ public class DOMSampleCommonController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/member/common")
+	public ModelAndView requestMemberCommon(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		ModelAndView mav = new ModelAndView("");
+
+		mav.addObject("now", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
+		mav.addObject("result", "HelloWorld~!");
+
+		mav.setViewName("member/common");
+
+		return mav;
+	}
+
 	public static String byteToHexString(byte[] byteArray) {
 
 		StringBuilder stringBuilder = new StringBuilder();

@@ -59,18 +59,23 @@
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="mediaTypes">
 			<map>
-				<entry key="html" value="text/html;charset=UTF-8"/>
-				<entry key="atom" value="application/atom+xml"/>
-				<entry key="json" value="application/json;charset=UTF-8"/>
+				<entry key="html" value="text/html;charset=UTF-8" />
+				<entry key="atom" value="application/atom+xml" />
+				<entry key="json" value="application/json;charset=UTF-8" />
 			</map>
 		</property>
 		<property name="viewResolvers">
 			<list>
 				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-					<property name="order" value="0"/>
+					<property name="order" value="0" />
+				</bean>
+				<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+					<property name="order" value="1" />
+					<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+					<property name="cache" value="true" />
 				</bean>
 				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-					<property name="order" value="1"/>
+					<property name="order" value="2" />
 					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 					<property name="cache" value="true" />
 					<property name="prefix" value="/WEB-INF/view/" />
