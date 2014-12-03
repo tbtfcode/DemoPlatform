@@ -6,6 +6,7 @@ package test.tbtf.demo.manager.sample.controller;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -28,15 +29,25 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DOMSampleCommonController {
 
-	@RequestMapping(value = "/sample/common")
-	public ModelAndView requestSampleCommon(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/sample/viewSample")
+	public ModelAndView viewSample(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		ModelAndView mav = new ModelAndView("");
 
 		mav.addObject("now", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
 		mav.addObject("result", "HelloWorld~!");
 
-		mav.setViewName("sample/common");
+		mav.setViewName("sample/viewSample");
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/sample/viewSamplePopup")
+	public ModelAndView viewSamplePopup(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		ModelAndView mav = new ModelAndView("");
+
+		mav.setViewName("sample/viewSamplePopup");
 
 		return mav;
 	}
@@ -104,6 +115,14 @@ public class DOMSampleCommonController {
 [AES   ]USER PW:=640E4A080FB75D3C36EBF1839968BD47C9ED7D016E84BCC21B93DB654EDC98D8
 [AESMD5]USER PW:=B5AACF9B39CFA0F934928E7D63780C59
  */
+			args = null;
+			args = new String[] { "member", "career", "sample","sampol","SAmple" };
+
+			for (String str : args) {
+				System.out.print(String.format("%s:=", str));
+				System.out.println(Pattern.compile("^(sample)").matcher(str).matches());
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

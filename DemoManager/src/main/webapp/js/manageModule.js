@@ -1,6 +1,6 @@
 'use strict';
 
-var commonModule = angular.module('DOMCommonModule', [ 'DOMMemberModule','DOMCareerModule' ])
+var commonModule = angular.module('DOMCommonModule', [ 'DOMCommonModule','DOMMemberModule','DOMCareerModule' ])
 
 .directive('getLength', function() {
 	return {
