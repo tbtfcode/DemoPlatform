@@ -12,7 +12,7 @@
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
 	<context:component-scan base-package="test.tbtf.demo.manager" />
-<!--
+
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="create*"            propagation="REQUIRED" />
@@ -32,7 +32,7 @@
 	<aop:config proxy-target-class="true">
 		<aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Service.*(..))" />
 	</aop:config>
--->
+
 	<bean id="loggingAspect" class="test.tbtf.demo.manager.handler.DOMLoggingAspect" />
 
 	<aop:config>

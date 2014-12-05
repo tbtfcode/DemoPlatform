@@ -20,12 +20,27 @@
 		<put-attribute name="_default_script" value="/tiles2/_default_script.jsp" />
 	</definition>
 
-	<definition name="sample/*Popup" extends="_popup">
-		<put-attribute name="_content" value="/WEB-INF/view/sample/{1}Popup.jsp" />
+	<definition name="_login"   template="/tiles2/_format_login.jsp">
+		<put-attribute name="_default_meta"   value="/tiles2/_default_meta.jsp" />
+		<put-attribute name="_default_css"    value="/tiles2/_default_css.jsp" />
+		<put-attribute name="_default_header" value="/tiles2/_default_header.jsp" />
+		<put-attribute name="_default_script" value="/tiles2/_default_script.jsp" />
 	</definition>
 
-	<definition name="sample/*" extends="_default">
-		<put-attribute name="_content" value="/WEB-INF/view/sample/{1}.jsp" />
+	<definition name="member/viewLogin" extends="_login">
+		<put-attribute name="_content" value="/WEB-INF/view/member/viewLogin.jsp" />
+	</definition>
+
+	<!-- definition name="sample/*Popup" extends="_popup">
+		<put-attribute name="_content" value="/WEB-INF/view/sample/{1}Popup.jsp" / -->
+	<definition name="*/*Popup" extends="_popup">
+		<put-attribute name="_content" value="/WEB-INF/view/{1}/{2}Popup.jsp" />
+	</definition>
+
+	<!-- definition name="sample/*" extends="_default">
+		<put-attribute name="_content" value="/WEB-INF/view/sample/{1}.jsp" / -->
+	<definition name="*/*" extends="_default">
+		<put-attribute name="_content" value="/WEB-INF/view/{1}/{2}.jsp" />
 	</definition>
 <!--
 viewAction.*

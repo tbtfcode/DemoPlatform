@@ -26,6 +26,14 @@ public class DOMContextLoaderListener extends ContextLoaderListener {
 
 		Log4jWebConfigurer.initLogging(event.getServletContext());
 
+		org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+		/*
+		 * try {
+		 * Log4jConfigurer.initLogging(event.getServletContext().getInitParameter
+		 * ("log4jConfigLocation")); } catch (FileNotFoundException e) { //
+		 * e.printStackTrace(); }
+		 */
+
 		super.contextInitialized(event);
 	}
 
@@ -36,6 +44,7 @@ public class DOMContextLoaderListener extends ContextLoaderListener {
 	public void contextDestroyed(ServletContextEvent event) {
 
 		Log4jWebConfigurer.shutdownLogging(event.getServletContext());
+		// Log4jConfigurer.shutdownLogging();
 
 		super.contextDestroyed(event);
 	}

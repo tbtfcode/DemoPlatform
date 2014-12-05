@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Welcome to DEMO~!!</title>
+		<title>StandBy...</title>
 	</head>
 	<body>
 	</body>

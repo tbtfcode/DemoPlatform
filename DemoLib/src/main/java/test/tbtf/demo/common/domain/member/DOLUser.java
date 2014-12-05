@@ -8,12 +8,12 @@ import test.tbtf.demo.common.domain.DOLBaseDomain;
 /**
  * @project DemoLib
  * @package test.tbtf.demo.common.domain.member
- * @file DOLUsers.java
+ * @file DOLUser.java
  * @date 2014. 11. 13.
  * @author tbtf.base.code@gmail.com
  * @description
  */
-public class DOLUsers extends DOLBaseDomain {
+public class DOLUser extends DOLBaseDomain {
 
 	private static final long serialVersionUID = -3553843079369040628L;
 

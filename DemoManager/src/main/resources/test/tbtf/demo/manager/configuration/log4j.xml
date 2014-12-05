@@ -42,7 +42,7 @@
 
 	<root>
 <!-- OFF < FATAL < ERROR < WARN < INFO < DEBUG < TRACE < ALL -->
-		<priority value="DEBUG" />
+		<level value="DEBUG" />
 		<appender-ref ref="TRACE_LOGGER" />
 	</root>
 
