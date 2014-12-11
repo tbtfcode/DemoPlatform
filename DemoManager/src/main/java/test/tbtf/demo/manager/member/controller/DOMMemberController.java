@@ -31,6 +31,16 @@ public class DOMMemberController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/loginCheck")
+	public ModelAndView checkLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		ModelAndView mav = new ModelAndView("");
+
+		mav.setViewName("sample/viewSample");
+
+		return mav;
+	}
+
 	@RequestMapping(value = "/logout")
 	public ModelAndView viewLogout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 

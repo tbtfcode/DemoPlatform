@@ -6,25 +6,28 @@
 	<definition name="_default" template="/tiles2/_format_default.jsp">
 		<put-attribute name="_default_meta"      value="/tiles2/_default_meta.jsp" />
 		<put-attribute name="_default_css"       value="/tiles2/_default_css.jsp" />
+		<put-attribute name="_default_script_preload"   value="/tiles2/_default_script_preload.jsp" />
 		<put-attribute name="_default_header"    value="/tiles2/_default_header.jsp" />
 		<put-attribute name="_default_menu_top"  value="/tiles2/_default_menu_top.jsp" />
 		<put-attribute name="_default_menu_left" value="/tiles2/_default_menu_left.jsp" />
 		<put-attribute name="_default_footer"    value="/tiles2/_default_footer.jsp" />
-		<put-attribute name="_default_script"    value="/tiles2/_default_script.jsp" />
+		<put-attribute name="_default_script_afterload" value="/tiles2/_default_script_afterload.jsp" />
 	</definition>
 
 	<definition name="_popup"   template="/tiles2/_format_popup.jsp">
 		<put-attribute name="_default_meta"   value="/tiles2/_default_meta.jsp" />
 		<put-attribute name="_default_css"    value="/tiles2/_default_css.jsp" />
+		<put-attribute name="_default_script_preload"   value="/tiles2/_default_script_preload.jsp" />
 		<put-attribute name="_default_header" value="/tiles2/_default_header.jsp" />
-		<put-attribute name="_default_script" value="/tiles2/_default_script.jsp" />
+		<put-attribute name="_default_script_afterload" value="/tiles2/_default_script_afterload.jsp" />
 	</definition>
 
 	<definition name="_login"   template="/tiles2/_format_login.jsp">
 		<put-attribute name="_default_meta"   value="/tiles2/_default_meta.jsp" />
 		<put-attribute name="_default_css"    value="/tiles2/_default_css.jsp" />
+		<put-attribute name="_default_script_preload"   value="/tiles2/_default_script_preload.jsp" />
 		<put-attribute name="_default_header" value="/tiles2/_default_header.jsp" />
-		<put-attribute name="_default_script" value="/tiles2/_default_script.jsp" />
+		<put-attribute name="_default_script_afterload" value="/tiles2/_default_script_afterload.jsp" />
 	</definition>
 
 	<definition name="member/viewLogin" extends="_login">
@@ -42,11 +45,5 @@
 	<definition name="*/*" extends="_default">
 		<put-attribute name="_content" value="/WEB-INF/view/{1}/{2}.jsp" />
 	</definition>
-<!--
-viewAction.*
-editAction.*
-listAction.*
-saveAction.*
-viewActionPopup.*
--->
+
 </tiles-definitions>

@@ -5,27 +5,31 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<!-- security:http pattern="/tiles2/**" security="none" / -->
+	<security:http auto-config="true">
 
-	<!-- security:http use-expressions="true" -->
-	<security:http>
-		<!-- security:intercept-url pattern="/js/**" access="ROLE_USER" / -->
-		<!-- security:intercept-url pattern="/tiles2/**" access="ROLE_USER" / -->
+		<security:intercept-url pattern="/index.*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/js/**"   access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/login*"  access="IS_AUTHENTICATED_ANONYMOUSLY" />
 
 		<security:intercept-url pattern="/**" access="ROLE_USER" />
 
-		<security:form-login />
-		<!-- form-login login-page='/login.htm' default-target-url='/home.htm' always-use-default-target='true' / -->
+		<security:form-login login-page="/login.do"
+		                     username-parameter="userId"
+		                     password-parameter="userPw"
+		                     login-processing-url="/loginAuthentication"
+		                     authentication-failure-url="/login.do?error"
+		                     default-target-url="/sample/viewSample.do"
+		                     always-use-default-target="true" />
+
 		<security:logout delete-cookies="JSESSIONID" />
+
+		<security:csrf />
 	</security:http>
 
+	<bean id="authenticationProvider" class="test.tbtf.demo.manager.handler.DOMAuthenticationProvider" />
+
 	<security:authentication-manager>
-		<security:authentication-provider>
-		<security:jdbc-user-service data-source-ref=""/>
-			<security:user-service>
-				<security:user name="test" password="test123!@#" authorities="ROLE_USER" />
-			</security:user-service>
-		</security:authentication-provider>
+		<security:authentication-provider ref="authenticationProvider" />
 	</security:authentication-manager>
 
 </beans>

@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div>
-	<script src="http://localhost/DemoManage/js/manageModule.js"></script>
-	<script src="http://localhost/DemoManage/js/memberController.js"></script>
-	<script src="http://localhost/DemoManage/js/careerController.js"></script>
-	<!-- script src="http://localhost/DemoManage/lib/ui-utils.js"></script -->
-
 	<h1>Hello, world!</h1>
 
 	<get-length>asdf</get-length>
