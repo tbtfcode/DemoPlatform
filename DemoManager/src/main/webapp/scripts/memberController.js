@@ -4,16 +4,24 @@ var memberModule = angular.module('DOMMemberModule', []);
 
 var memberController = function($scope, $http) {
 
-/*
-	$scope.user = {
-		id : "",
-		pw : ""
+	$scope.doLoginDTO = {
+		userId : "",
+		userPw : "",
+		errorCode : "",
+		errorMessage : ""
 	};
 
-	$scope.doLogin = function() {
-		$http.post('/loginAuthentication', {
-			userId : $scope.user.id,
-			userPw : $scope.user.pw
+	$scope.doLogin = function(token) {
+		$http({
+			method : 'POST',
+			url : '/loginAuthProc',
+			headers : {
+				'X-CSRF-TOKENN' : token
+			},
+			data : {
+				j_username : $scope.doLoginDTO.userId,
+				j_password : $scope.doLoginDTO.userPw
+			}
 		}).success(function(data, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available
@@ -22,15 +30,10 @@ var memberController = function($scope, $http) {
 			console.log(headers);
 			console.log(config);
 		}).error(function(data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
 			console.log(data);
-			console.log(status);
-			console.log(headers);
-			console.log(config);
 		});
 	};
-*/
+
 	$scope.greet = "Hi~!";
 
 	$scope.greeting = function() {

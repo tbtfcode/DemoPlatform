@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
 
 import test.tbtf.demo.manager.member.domain.DOMUser;
 
@@ -23,7 +22,6 @@ import test.tbtf.demo.manager.member.domain.DOMUser;
  * @author tbtf.base.code@gmail.com
  * @description
  */
-@Component
 public class DOMAuthenticationProvider implements AuthenticationProvider {
 
 	private final Logger logger = Logger.getLogger(DOMAuthenticationProvider.class);
@@ -36,11 +34,10 @@ public class DOMAuthenticationProvider implements AuthenticationProvider {
 
 		String principal = (String) authentication.getPrincipal();
 		String credentials = (String) authentication.getCredentials();
-		// check whether user's credentials are valid.
-		// if false, throw new
-		// BadCredentialsException(messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials",
-		// "Bad credentials"));
+
 		logger.debug(String.format("userId:%s userPw:%s", principal, credentials));
+
+		// memberService.getUser(user);
 
 		if (credentials.compareTo("test123!@#") != 0) {
 			throw new BadCredentialsException("Bad Credentials");

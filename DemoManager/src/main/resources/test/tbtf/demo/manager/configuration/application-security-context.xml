@@ -5,14 +5,39 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<security:http auto-config="true">
+	<bean id="authenticationEntryPoint" class="test.tbtf.demo.manager.handler.DOMAuthenticationEntryPoint">
+	</bean>
 
-		<security:intercept-url pattern="/index.*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/js/**"   access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/login*"  access="IS_AUTHENTICATED_ANONYMOUSLY" />
+	<bean id="authenticationAccessDeniedHandler" class="test.tbtf.demo.manager.handler.DOMAuthenticationAccessDeniedHandler" />
+	
+
+	<bean id="authenticationProvider" class="test.tbtf.demo.manager.handler.DOMAuthenticationProvider" />
+
+	<security:authentication-manager alias="authenticationManager" >
+		<security:authentication-provider ref="authenticationProvider" />
+	</security:authentication-manager>
+
+	<bean id="authenticationProcessingFilter" class="test.tbtf.demo.manager.listener.DOMAuthenticationProcessingFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="authenticationFailureHandler">
+			<bean class="test.tbtf.demo.manager.handler.DOMAuthenticationFailureHandler">
+				<property name="defaultFailureUrl" value="/login.do?AuthFail"/>
+			</bean>
+		</property>
+	</bean>
+
+	<security:http auto-config="false" entry-point-ref="authenticationEntryPoint">
+
+		<security:intercept-url pattern="/index.*"    access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/scripts/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/login*"     access="IS_AUTHENTICATED_ANONYMOUSLY" />
 
 		<security:intercept-url pattern="/**" access="ROLE_USER" />
 
+		<security:access-denied-handler ref="authenticationAccessDeniedHandler" />
+
+		<security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
+<!--
 		<security:form-login login-page="/login.do"
 		                     username-parameter="userId"
 		                     password-parameter="userPw"
@@ -20,16 +45,11 @@
 		                     authentication-failure-url="/login.do?error"
 		                     default-target-url="/sample/viewSample.do"
 		                     always-use-default-target="true" />
+-->
 
 		<security:logout delete-cookies="JSESSIONID" />
 
 		<security:csrf />
 	</security:http>
-
-	<bean id="authenticationProvider" class="test.tbtf.demo.manager.handler.DOMAuthenticationProvider" />
-
-	<security:authentication-manager>
-		<security:authentication-provider ref="authenticationProvider" />
-	</security:authentication-manager>
 
 </beans>

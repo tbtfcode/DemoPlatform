@@ -3,47 +3,46 @@
           "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
           "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
+	<!-- Layout Definition [STX] -->
 	<definition name="_default" template="/tiles2/_format_default.jsp">
 		<put-attribute name="_default_meta"      value="/tiles2/_default_meta.jsp" />
 		<put-attribute name="_default_css"       value="/tiles2/_default_css.jsp" />
-		<put-attribute name="_default_script_preload"   value="/tiles2/_default_script_preload.jsp" />
+		<put-attribute name="_default_script"    value="/tiles2/_default_script.jsp" />
 		<put-attribute name="_default_header"    value="/tiles2/_default_header.jsp" />
 		<put-attribute name="_default_menu_top"  value="/tiles2/_default_menu_top.jsp" />
 		<put-attribute name="_default_menu_left" value="/tiles2/_default_menu_left.jsp" />
 		<put-attribute name="_default_footer"    value="/tiles2/_default_footer.jsp" />
-		<put-attribute name="_default_script_afterload" value="/tiles2/_default_script_afterload.jsp" />
 	</definition>
 
 	<definition name="_popup"   template="/tiles2/_format_popup.jsp">
 		<put-attribute name="_default_meta"   value="/tiles2/_default_meta.jsp" />
 		<put-attribute name="_default_css"    value="/tiles2/_default_css.jsp" />
-		<put-attribute name="_default_script_preload"   value="/tiles2/_default_script_preload.jsp" />
+		<put-attribute name="_default_script" value="/tiles2/_default_script.jsp" />
 		<put-attribute name="_default_header" value="/tiles2/_default_header.jsp" />
-		<put-attribute name="_default_script_afterload" value="/tiles2/_default_script_afterload.jsp" />
+		<put-attribute name="_default_footer" value="/tiles2/_default_footer.jsp" />
 	</definition>
 
 	<definition name="_login"   template="/tiles2/_format_login.jsp">
 		<put-attribute name="_default_meta"   value="/tiles2/_default_meta.jsp" />
 		<put-attribute name="_default_css"    value="/tiles2/_default_css.jsp" />
-		<put-attribute name="_default_script_preload"   value="/tiles2/_default_script_preload.jsp" />
+		<put-attribute name="_default_script" value="/tiles2/_default_script.jsp" />
 		<put-attribute name="_default_header" value="/tiles2/_default_header.jsp" />
-		<put-attribute name="_default_script_afterload" value="/tiles2/_default_script_afterload.jsp" />
+		<put-attribute name="_default_footer" value="/tiles2/_default_footer.jsp" />
 	</definition>
+	<!-- Layout Definition [ETX] -->
 
+	<!-- ViewerDefintion & Insert Content into pages [STX] -->
 	<definition name="member/viewLogin" extends="_login">
 		<put-attribute name="_content" value="/WEB-INF/view/member/viewLogin.jsp" />
 	</definition>
 
-	<!-- definition name="sample/*Popup" extends="_popup">
-		<put-attribute name="_content" value="/WEB-INF/view/sample/{1}Popup.jsp" / -->
 	<definition name="*/*Popup" extends="_popup">
 		<put-attribute name="_content" value="/WEB-INF/view/{1}/{2}Popup.jsp" />
 	</definition>
 
-	<!-- definition name="sample/*" extends="_default">
-		<put-attribute name="_content" value="/WEB-INF/view/sample/{1}.jsp" / -->
 	<definition name="*/*" extends="_default">
 		<put-attribute name="_content" value="/WEB-INF/view/{1}/{2}.jsp" />
 	</definition>
+	<!-- ViewerDefintion & Insert Content into pages [ETX] -->
 
 </tiles-definitions>

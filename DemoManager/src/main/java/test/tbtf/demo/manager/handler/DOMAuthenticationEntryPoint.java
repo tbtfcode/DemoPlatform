@@ -3,34 +3,34 @@
  */
 package test.tbtf.demo.manager.handler;
 
+import java.io.IOException;
 import java.util.Enumeration;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 /**
  * @project DemoManager
  * @package test.tbtf.demo.manager.handler
- * @file DOMHandlerInterceptor.java
- * @date 2014. 11. 27.
+ * @file DOMAuthenticationEntryPoint.java
+ * @date 2014. 12. 12.
  * @author tbtf.base.code@gmail.com
  * @description
  */
-public class DOMHandlerInterceptor implements HandlerInterceptor {
+public class DOMAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-	final Logger logger = Logger.getLogger(DOMHandlerInterceptor.class);
+	private final Logger logger = Logger.getLogger(DOMAuthenticationEntryPoint.class);
 
 	/*
 	 * (non-Javadoc)
 	 */
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		logger.debug("preHandle");
-
+	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 		logger.debug("┌----------------------------------------------------------------------");
 		Enumeration<?> enumeration = request.getHeaderNames();
 		String headerKey = null;
@@ -51,23 +51,6 @@ public class DOMHandlerInterceptor implements HandlerInterceptor {
 			logger.debug(String.format("%s | %s", headerKey, request.getAttribute(headerKey)));
 		}
 		logger.debug("└----------------------------------------------------------------------");
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		logger.debug("postHandle");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) throws Exception {
-		logger.debug("afterCompletion");
 	}
 
 }
