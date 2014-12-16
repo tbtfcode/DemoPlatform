@@ -3,7 +3,6 @@
  */
 package test.tbtf.demo.manager.handler;
 
-import org.apache.log4j.Logger;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 /**
@@ -15,16 +14,5 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
  * @description 
  */
 public class DOMAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-
-	private Logger logger = Logger.getLogger(DOMAuthenticationFailureHandler.class);
-
-	/* (non-Javadoc)
-	 * @see org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler#setDefaultFailureUrl(java.lang.String)
-	 */
-	@Override
-	public void setDefaultFailureUrl(String defaultFailureUrl) {
-		logger.debug(defaultFailureUrl);
-		super.setDefaultFailureUrl(defaultFailureUrl);
-	}
 
 }

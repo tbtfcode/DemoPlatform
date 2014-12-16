@@ -3,10 +3,21 @@
  */
 package test.tbtf.demo.manager.listener;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 /**
  * @project DemoManager
@@ -16,48 +27,67 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author tbtf.base.code@gmail.com
  * @description
  */
-public class DOMAuthenticationProcessingFilter extends UsernamePasswordAuthenticationFilter {
+public class DOMAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
 	private final Logger logger = Logger.getLogger(DOMAuthenticationProcessingFilter.class);
 
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	protected String obtainPassword(HttpServletRequest request) {
-		logger.debug("----- obtainPassword");
-		logger.debug(request);
-		return super.obtainPassword(request);
+	protected DOMAuthenticationProcessingFilter() {
+		super("/j_spring_security_check");
 	}
 
 	/*
 	 * (non-Javadoc)
 	 */
 	@Override
-	protected String obtainUsername(HttpServletRequest request) {
-		logger.debug("----- obtainUsername");
-		logger.debug(request);
-		return super.obtainUsername(request);
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+
+		AuthenticationUserInfo userInfo = (new ObjectMapper()).readValue(request.getInputStream(), AuthenticationUserInfo.class);
+
+		logger.debug(String.format("userId:%s userPw:%s", userInfo.getPrincipal(), userInfo.getCredentials()));
+
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userInfo.getPrincipal(), userInfo.getCredentials());
+		authenticationToken.setDetails(new WebAuthenticationDetails(request));
+
+		return this.getAuthenticationManager().authenticate(authenticationToken);
 	}
 
-	/*
-	 * (non-Javadoc)
+}
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+class AuthenticationUserInfo {
+
+	@JsonProperty(value = "j_username")
+	private String principal;
+
+	@JsonProperty(value = "j_password")
+	private String credentials;
+
+	/**
+	 * @return the principal
 	 */
-	@Override
-	public void setPasswordParameter(String passwordParameter) {
-		logger.debug("----- setPasswordParameter");
-		logger.debug(passwordParameter);
-		super.setPasswordParameter(passwordParameter);
+	public String getPrincipal() {
+		return principal;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * @param principal the principal to set
 	 */
-	@Override
-	public void setUsernameParameter(String usernameParameter) {
-		logger.debug("----- setUsernameParameter");
-		logger.debug(usernameParameter);
-		super.setUsernameParameter(usernameParameter);
+	public void setPrincipal(String principal) {
+		this.principal = principal;
+	}
+
+	/**
+	 * @return the credentials
+	 */
+	public String getCredentials() {
+		return credentials;
+	}
+
+	/**
+	 * @param credentials the credentials to set
+	 */
+	public void setCredentials(String credentials) {
+		this.credentials = credentials;
 	}
 
 }

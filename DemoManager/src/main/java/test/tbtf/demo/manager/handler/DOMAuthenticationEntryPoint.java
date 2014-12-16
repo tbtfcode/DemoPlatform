@@ -4,7 +4,6 @@
 package test.tbtf.demo.manager.handler;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,26 +30,32 @@ public class DOMAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	 */
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-		logger.debug("┌----------------------------------------------------------------------");
+		logger.debug("commence");
+		/*
+		logger.debug("┌--- Request Header ---------------------------------------------------");
 		Enumeration<?> enumeration = request.getHeaderNames();
 		String headerKey = null;
 		while (enumeration.hasMoreElements()) {
 			headerKey = String.valueOf(enumeration.nextElement());
 			logger.debug(String.format("%s | %s", headerKey, request.getHeader(headerKey)));
 		}
-		logger.debug("│----------------------------------------------------------------------");
+		logger.debug("│--- Request Parameter ------------------------------------------------");
 		enumeration = request.getParameterNames();
 		while (enumeration.hasMoreElements()) {
 			headerKey = String.valueOf(enumeration.nextElement());
 			logger.debug(String.format("%s | %s", headerKey, request.getParameter(headerKey)));
 		}
-		logger.debug("│----------------------------------------------------------------------");
+		logger.debug("│--- Reqeust Attribute ------------------------------------------------");
 		enumeration = request.getAttributeNames();
 		while (enumeration.hasMoreElements()) {
 			headerKey = String.valueOf(enumeration.nextElement());
 			logger.debug(String.format("%s | %s", headerKey, request.getAttribute(headerKey)));
 		}
+		logger.debug("│--- HttpServletResponse &  AuthenticationException -------------------");
+		logger.debug(response);
+		logger.debug(authException);
 		logger.debug("└----------------------------------------------------------------------");
+		*/
 	}
 
 }

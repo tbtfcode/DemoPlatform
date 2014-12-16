@@ -3,8 +3,6 @@
  */
 package test.tbtf.demo.manager.handler;
 
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,27 +28,6 @@ public class DOMHandlerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		logger.debug("preHandle");
-
-		logger.debug("┌----------------------------------------------------------------------");
-		Enumeration<?> enumeration = request.getHeaderNames();
-		String headerKey = null;
-		while (enumeration.hasMoreElements()) {
-			headerKey = String.valueOf(enumeration.nextElement());
-			logger.debug(String.format("%s | %s", headerKey, request.getHeader(headerKey)));
-		}
-		logger.debug("│----------------------------------------------------------------------");
-		enumeration = request.getParameterNames();
-		while (enumeration.hasMoreElements()) {
-			headerKey = String.valueOf(enumeration.nextElement());
-			logger.debug(String.format("%s | %s", headerKey, request.getParameter(headerKey)));
-		}
-		logger.debug("│----------------------------------------------------------------------");
-		enumeration = request.getAttributeNames();
-		while (enumeration.hasMoreElements()) {
-			headerKey = String.valueOf(enumeration.nextElement());
-			logger.debug(String.format("%s | %s", headerKey, request.getAttribute(headerKey)));
-		}
-		logger.debug("└----------------------------------------------------------------------");
 		return true;
 	}
 

@@ -30,15 +30,20 @@ public class DOMAuthenticationProvider implements AuthenticationProvider {
 	 * (non-Javadoc)
 	 */
 	@Override
+	public boolean supports(Class<?> authentication) {
+		return authentication.isAssignableFrom(UsernamePasswordAuthenticationToken.class);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 */
+	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
 		String principal = (String) authentication.getPrincipal();
 		String credentials = (String) authentication.getCredentials();
 
 		logger.debug(String.format("userId:%s userPw:%s", principal, credentials));
-
-		// memberService.getUser(user);
-
 		if (credentials.compareTo("test123!@#") != 0) {
 			throw new BadCredentialsException("Bad Credentials");
 		}
@@ -57,17 +62,6 @@ public class DOMAuthenticationProvider implements AuthenticationProvider {
 
 		return authenticationToken;
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 */
-	@Override
-	public boolean supports(Class<?> authentication) {
-		// System.out.println(authentication.equals(UsernamePasswordAuthenticationToken.class));
-		// System.out.println(UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
-
-		return authentication.isAssignableFrom(UsernamePasswordAuthenticationToken.class);
 	}
 
 }

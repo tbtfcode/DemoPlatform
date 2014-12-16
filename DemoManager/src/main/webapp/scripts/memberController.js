@@ -2,37 +2,48 @@
 
 var memberModule = angular.module('DOMMemberModule', []);
 
-var memberController = function($scope, $http) {
+var memberController = function($scope, $http, $location) {
 
 	$scope.doLoginDTO = {
-		userId : "",
-		userPw : "",
+		j_username : "",
+		j_password : "",
 		errorCode : "",
 		errorMessage : ""
 	};
 
 	$scope.doLogin = function(token) {
 		$http({
+			url : '/j_spring_security_check',
 			method : 'POST',
-			url : '/loginAuthProc',
 			headers : {
-				'X-CSRF-TOKENN' : token
+				'Content-Type' : 'application/x-www-form-urlencoded',
+				'X-CSRF-TOKEN' : token
 			},
-			data : {
+			data : $scope.doLoginDTO /*{
 				j_username : $scope.doLoginDTO.userId,
 				j_password : $scope.doLoginDTO.userPw
-			}
+			}*/
 		}).success(function(data, status, headers, config) {
-			// this callback will be called asynchronously
-			// when the response is available
 			console.log(data);
-			console.log(status);
-			console.log(headers);
-			console.log(config);
 		}).error(function(data, status, headers, config) {
 			console.log(data);
 		});
 	};
+
+	$scope.doLogout = function(token) {
+		$http({
+			url : '/logout.do',
+			method : 'POST',
+			headers : {
+				'Content-Type' : 'application/x-www-form-urlencoded',
+				'X-CSRF-TOKEN' : token
+			}
+		}).success(function(data, status, headers, config) {
+			console.log(data);
+		}).error(function(data, status, headers, config) {
+			console.log(data);
+		});
+	}
 
 	$scope.greet = "Hi~!";
 
@@ -42,6 +53,6 @@ var memberController = function($scope, $http) {
 
 };
 
-memberController.$inject = [ '$scope', '$http' ];
+memberController.$inject = [ '$scope', '$http', '$location' ];
 
 memberModule.controller('DOMMemberController', memberController);

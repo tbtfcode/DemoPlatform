@@ -19,11 +19,27 @@
 
 	<bean id="authenticationProcessingFilter" class="test.tbtf.demo.manager.listener.DOMAuthenticationProcessingFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
+<!--
+		<property name="authenticationSuccessHandler">
+			<bean class="test.tbtf.demo.manager.handler.DOMAuthenticationSuccessHandler">
+				<property name="defaultTargetUrl" value="/sample/viewSample.do" />
+			</bean>
+		</property>
+-->
 		<property name="authenticationFailureHandler">
 			<bean class="test.tbtf.demo.manager.handler.DOMAuthenticationFailureHandler">
 				<property name="defaultFailureUrl" value="/login.do?AuthFail"/>
 			</bean>
 		</property>
+	</bean>
+
+	<bean id="authenticationLogoutFilter" class="test.tbtf.demo.manager.listener.DOMAuthenticationLogoutFilter">
+		<constructor-arg index="0" value="/logout.do" />
+		<constructor-arg index="1">
+			<list>
+				<bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+			</list>
+		</constructor-arg>
 	</bean>
 
 	<security:http auto-config="false" entry-point-ref="authenticationEntryPoint">
@@ -37,6 +53,7 @@
 		<security:access-denied-handler ref="authenticationAccessDeniedHandler" />
 
 		<security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
+		<security:custom-filter position="LOGOUT_FILTER" ref="authenticationLogoutFilter" />
 <!--
 		<security:form-login login-page="/login.do"
 		                     username-parameter="userId"
@@ -45,9 +62,8 @@
 		                     authentication-failure-url="/login.do?error"
 		                     default-target-url="/sample/viewSample.do"
 		                     always-use-default-target="true" />
--->
-
 		<security:logout delete-cookies="JSESSIONID" />
+-->
 
 		<security:csrf />
 	</security:http>

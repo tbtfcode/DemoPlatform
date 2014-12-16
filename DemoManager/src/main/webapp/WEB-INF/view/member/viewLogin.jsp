@@ -6,10 +6,10 @@
 		<div class="form-group">
 			<label for="userId" class="sr-only">Email Address</label>
 			<!-- input type="email" class="form-control" name="userId" placeholder="Email Address" required autofocus -->
-			<input type="email" class="form-control" ng-model="doLoginDTO.userId" placeholder="Email Address" required autofocus>
+			<input type="email" class="form-control" ng-model="doLoginDTO.j_username" placeholder="Email Address" required autofocus>
 			<label for="userPw" class="sr-only">Password</label>
 			<!-- input type="password" class="form-control" name="userPw" placeholder="Password" required -->
-			<input type="password" class="form-control" ng-model="doLoginDTO.userPw" placeholder="Password" required>
+			<input type="password" class="form-control" ng-model="doLoginDTO.j_password" placeholder="Password" required>
 		</div>
 		<div class="checkbox">
 			<label>
