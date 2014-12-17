@@ -1,13 +1,12 @@
 'use strict';
 
-var commonModule = angular.module('DOMManageModule', [ 'ngMD5', 'DOMCommonModule','DOMMemberModule','DOMCareerModule' ])
+var commonModule = angular.module('DOMManageModule', [ 'DOMCommonModule','DOMMemberModule','DOMCareerModule' ])
 /*
-var commonModule = angular.module('DOMManageModule', [ 'ngCookies', 'DOMCommonModule','DOMMemberModule','DOMCareerModule' ])
-.factory('httpInterceptor', ['$q', '$cookies', function($q, $cookies) {
+.factory('httpInterceptor', ['$q', function($q) {
 	return {
 		'request' : function(config) {
-			// do something on success
-			config.headers[$('meta[name=_csrf_header]').attr('content')] = $('meta[name=_csrf]').attr('content');
+			config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			config.headers['X-CSRF-TOKEN'] = document.getElementById('_csrf').value;
 			return config;
 		}
 	};

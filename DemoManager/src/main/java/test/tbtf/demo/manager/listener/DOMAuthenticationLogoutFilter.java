@@ -34,16 +34,14 @@ public class DOMAuthenticationLogoutFilter extends LogoutFilter {
 	 */
 	public DOMAuthenticationLogoutFilter(String logoutSuccessUrl, LogoutHandler... handlers) {
 		super(logoutSuccessUrl, handlers);
-		// TODO Auto-generated constructor stub
 	}
 
 	/*
 	 * (non-Javadoc)
 	 */
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-		logger.debug("doFilter");
-		super.doFilter(req, res, chain);
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+		super.doFilter(request, response, filterChain);
 	}
 
 	/*
@@ -51,10 +49,10 @@ public class DOMAuthenticationLogoutFilter extends LogoutFilter {
 	 */
 	@Override
 	protected boolean requiresLogout(HttpServletRequest request, HttpServletResponse response) {
-		boolean result = super.requiresLogout(request, response);
-		if (result) {
-			return true;
-		}
+		// boolean result = super.requiresLogout(request, response);
+		// if (result) {
+		// return true;
+		// }
 
 		if (request.getSession() != null) {
 			logger.debug(String.format("[requiresLogout]%s", "request.getSession() != null"));
@@ -63,8 +61,7 @@ public class DOMAuthenticationLogoutFilter extends LogoutFilter {
 		} else {
 			logger.debug(String.format("[requiresLogout]%s", "request.getSession() == null"));
 		}
-		logger.debug(String.format("[requiresLogout]%b", result));
-		return false;
+		return super.requiresLogout(request, response);
 	}
 
 }

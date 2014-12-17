@@ -1,7 +1,7 @@
 /**
  * 
  */
-package test.tbtf.demo.manager.handler;
+package test.tbtf.demo.manager.listener;
 
 import java.io.IOException;
 
@@ -51,11 +51,11 @@ public class DOMAuthenticationEntryPoint implements AuthenticationEntryPoint {
 			headerKey = String.valueOf(enumeration.nextElement());
 			logger.debug(String.format("%s | %s", headerKey, request.getAttribute(headerKey)));
 		}
+		*/
 		logger.debug("│--- HttpServletResponse &  AuthenticationException -------------------");
 		logger.debug(response);
 		logger.debug(authException);
 		logger.debug("└----------------------------------------------------------------------");
-		*/
 	}
 
 }

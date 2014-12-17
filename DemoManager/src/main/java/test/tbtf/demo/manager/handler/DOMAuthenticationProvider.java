@@ -43,8 +43,9 @@ public class DOMAuthenticationProvider implements AuthenticationProvider {
 		String principal = (String) authentication.getPrincipal();
 		String credentials = (String) authentication.getCredentials();
 
-		logger.debug(String.format("userId:%s userPw:%s", principal, credentials));
+		logger.debug(String.format("[%s]userId:%s userPw:%s", authentication.getName(), principal, credentials));
 		if (credentials.compareTo("test123!@#") != 0) {
+			// authentication.setAuthenticated(false);
 			throw new BadCredentialsException("Bad Credentials");
 		}
 

@@ -5,11 +5,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<bean id="authenticationEntryPoint" class="test.tbtf.demo.manager.handler.DOMAuthenticationEntryPoint">
-	</bean>
+	<bean id="authenticationEntryPoint" class="test.tbtf.demo.manager.listener.DOMAuthenticationEntryPoint" />
 
 	<bean id="authenticationAccessDeniedHandler" class="test.tbtf.demo.manager.handler.DOMAuthenticationAccessDeniedHandler" />
-	
 
 	<bean id="authenticationProvider" class="test.tbtf.demo.manager.handler.DOMAuthenticationProvider" />
 
@@ -19,13 +17,11 @@
 
 	<bean id="authenticationProcessingFilter" class="test.tbtf.demo.manager.listener.DOMAuthenticationProcessingFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
-<!--
 		<property name="authenticationSuccessHandler">
 			<bean class="test.tbtf.demo.manager.handler.DOMAuthenticationSuccessHandler">
 				<property name="defaultTargetUrl" value="/sample/viewSample.do" />
 			</bean>
 		</property>
--->
 		<property name="authenticationFailureHandler">
 			<bean class="test.tbtf.demo.manager.handler.DOMAuthenticationFailureHandler">
 				<property name="defaultFailureUrl" value="/login.do?AuthFail"/>

@@ -4,6 +4,7 @@
 package test.tbtf.demo.manager.listener;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 /**
  * @project DemoManager
@@ -41,12 +40,34 @@ public class DOMAuthenticationProcessingFilter extends AbstractAuthenticationPro
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
 
-		AuthenticationUserInfo userInfo = (new ObjectMapper()).readValue(request.getInputStream(), AuthenticationUserInfo.class);
-
-		logger.debug(String.format("userId:%s userPw:%s", userInfo.getPrincipal(), userInfo.getCredentials()));
+		logger.debug("┌--- Request Header ---------------------------------------------------");
+		Enumeration<?> enumeration = request.getHeaderNames();
+		String headerKey = null;
+		while (enumeration.hasMoreElements()) {
+			headerKey = String.valueOf(enumeration.nextElement());
+			logger.debug(String.format("%s | %s", headerKey, request.getHeader(headerKey)));
+		}
+		logger.debug("│--- Request Parameter ------------------------------------------------");
+		enumeration = request.getParameterNames();
+		while (enumeration.hasMoreElements()) {
+			headerKey = String.valueOf(enumeration.nextElement());
+			logger.debug(String.format("%s | %s", headerKey, request.getParameter(headerKey)));
+		}
+		logger.debug("│--- Reqeust Attribute ------------------------------------------------");
+		enumeration = request.getAttributeNames();
+		while (enumeration.hasMoreElements()) {
+			headerKey = String.valueOf(enumeration.nextElement());
+			logger.debug(String.format("%s | %s", headerKey, request.getAttribute(headerKey)));
+		}
+		// AuthenticationUserInfo userInfo = (new ObjectMapper()).readValue(request.getInputStream(), AuthenticationUserInfo.class);
+		AuthenticationUserInfo userInfo = new AuthenticationUserInfo();
+		userInfo.setPrincipal(request.getParameter("j_username"));
+		userInfo.setCredentials(request.getParameter("j_password"));
 
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userInfo.getPrincipal(), userInfo.getCredentials());
-		authenticationToken.setDetails(new WebAuthenticationDetails(request));
+		// authenticationToken.setDetails(new WebAuthenticationDetails(request));
+
+		logger.debug(String.format("principal:%s credentials:%s isAuthenticated:%b", userInfo.getPrincipal(), userInfo.getCredentials(), authenticationToken.isAuthenticated()));
 
 		return this.getAuthenticationManager().authenticate(authenticationToken);
 	}

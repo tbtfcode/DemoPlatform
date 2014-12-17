@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div>
-This area is footer.
+	<input type="hidden" id="${_csrf.parameterName}" value="${_csrf.token}">
 </div>
 
 <!-- JavaScript placed at the end of the document so the pages load faster -->

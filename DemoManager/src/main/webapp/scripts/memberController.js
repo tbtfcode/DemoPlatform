@@ -3,7 +3,7 @@
 var memberModule = angular.module('DOMMemberModule', []);
 
 var memberController = function($scope, $http, $location) {
-
+/*
 	$scope.doLoginDTO = {
 		j_username : "",
 		j_password : "",
@@ -11,18 +11,14 @@ var memberController = function($scope, $http, $location) {
 		errorMessage : ""
 	};
 
-	$scope.doLogin = function(token) {
+	$scope.doLogin = function() {
 		$http({
 			url : '/j_spring_security_check',
 			method : 'POST',
-			headers : {
-				'Content-Type' : 'application/x-www-form-urlencoded',
-				'X-CSRF-TOKEN' : token
-			},
-			data : $scope.doLoginDTO /*{
+			data : $scope.doLoginDTO {
 				j_username : $scope.doLoginDTO.userId,
 				j_password : $scope.doLoginDTO.userPw
-			}*/
+			}
 		}).success(function(data, status, headers, config) {
 			console.log(data);
 		}).error(function(data, status, headers, config) {
@@ -33,18 +29,14 @@ var memberController = function($scope, $http, $location) {
 	$scope.doLogout = function(token) {
 		$http({
 			url : '/logout.do',
-			method : 'POST',
-			headers : {
-				'Content-Type' : 'application/x-www-form-urlencoded',
-				'X-CSRF-TOKEN' : token
-			}
+			method : 'POST'
 		}).success(function(data, status, headers, config) {
 			console.log(data);
 		}).error(function(data, status, headers, config) {
 			console.log(data);
 		});
 	}
-
+*/
 	$scope.greet = "Hi~!";
 
 	$scope.greeting = function() {
