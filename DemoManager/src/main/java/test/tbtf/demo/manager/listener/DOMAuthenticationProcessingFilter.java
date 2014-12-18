@@ -3,20 +3,7 @@
  */
 package test.tbtf.demo.manager.listener;
 
-import java.io.IOException;
-import java.util.Enumeration;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @project DemoManager
@@ -26,17 +13,15 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
  * @author tbtf.base.code@gmail.com
  * @description
  */
-public class DOMAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
+public class DOMAuthenticationProcessingFilter extends UsernamePasswordAuthenticationFilter /* AbstractAuthenticationProcessingFilter */{
 
+	/*
 	private final Logger logger = Logger.getLogger(DOMAuthenticationProcessingFilter.class);
 
 	protected DOMAuthenticationProcessingFilter() {
 		super("/j_spring_security_check");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
 
@@ -59,56 +44,21 @@ public class DOMAuthenticationProcessingFilter extends AbstractAuthenticationPro
 			headerKey = String.valueOf(enumeration.nextElement());
 			logger.debug(String.format("%s | %s", headerKey, request.getAttribute(headerKey)));
 		}
-		// AuthenticationUserInfo userInfo = (new ObjectMapper()).readValue(request.getInputStream(), AuthenticationUserInfo.class);
-		AuthenticationUserInfo userInfo = new AuthenticationUserInfo();
-		userInfo.setPrincipal(request.getParameter("j_username"));
-		userInfo.setCredentials(request.getParameter("j_password"));
 
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userInfo.getPrincipal(), userInfo.getCredentials());
-		// authenticationToken.setDetails(new WebAuthenticationDetails(request));
+		String principal = request.getParameter("j_username");
+		String credentials = request.getParameter("j_password");
 
-		logger.debug(String.format("principal:%s credentials:%s isAuthenticated:%b", userInfo.getPrincipal(), userInfo.getCredentials(), authenticationToken.isAuthenticated()));
+		if (principal == null || principal.trim().compareTo("") == 0) {
+			principal = "";
+		}
+		if (credentials == null || credentials.trim().compareTo("") == 0) {
+			credentials = "";
+		}
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(principal, credentials);
+		// authenticationToken.setDetails(new
+		// WebAuthenticationDetails(request));
 
 		return this.getAuthenticationManager().authenticate(authenticationToken);
 	}
-
-}
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-class AuthenticationUserInfo {
-
-	@JsonProperty(value = "j_username")
-	private String principal;
-
-	@JsonProperty(value = "j_password")
-	private String credentials;
-
-	/**
-	 * @return the principal
 	 */
-	public String getPrincipal() {
-		return principal;
-	}
-
-	/**
-	 * @param principal the principal to set
-	 */
-	public void setPrincipal(String principal) {
-		this.principal = principal;
-	}
-
-	/**
-	 * @return the credentials
-	 */
-	public String getCredentials() {
-		return credentials;
-	}
-
-	/**
-	 * @param credentials the credentials to set
-	 */
-	public void setCredentials(String credentials) {
-		this.credentials = credentials;
-	}
-
 }

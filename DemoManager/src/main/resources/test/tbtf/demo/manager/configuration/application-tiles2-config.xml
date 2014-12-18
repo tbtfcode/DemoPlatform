@@ -22,7 +22,7 @@
 		<put-attribute name="_default_footer" value="/tiles2/_default_footer.jsp" />
 	</definition>
 
-	<definition name="_login"   template="/tiles2/_format_login.jsp">
+	<definition name="_signin"  template="/tiles2/_format_signin.jsp">
 		<put-attribute name="_default_meta"   value="/tiles2/_default_meta.jsp" />
 		<put-attribute name="_default_css"    value="/tiles2/_default_css.jsp" />
 		<put-attribute name="_default_script" value="/tiles2/_default_script.jsp" />
@@ -32,8 +32,9 @@
 	<!-- Layout Definition [ETX] -->
 
 	<!-- ViewerDefintion & Insert Content into pages [STX] -->
-	<definition name="member/viewLogin" extends="_login">
-		<put-attribute name="_content" value="/WEB-INF/view/member/viewLogin.jsp" />
+	<definition name="member/viewSignin" extends="_signin">
+		<put-attribute name="_content_signin" value="/WEB-INF/view/member/viewSignin.jsp" />
+		<put-attribute name="_content_signup" value="/WEB-INF/view/member/viewSignup.jsp" />
 	</definition>
 
 	<definition name="*/*Popup" extends="_popup">

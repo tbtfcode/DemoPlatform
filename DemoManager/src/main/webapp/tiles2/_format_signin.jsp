@@ -17,11 +17,14 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-4"></div>
+			<div class="col-lg-2"></div>
 			<div class="col-lg-4">
-				<tiles:insertAttribute name="_content" />
+				<tiles:insertAttribute name="_content_signin" />
 			</div>
-			<div class="col-lg-4"></div>
+			<div class="col-lg-4">
+				<tiles:insertAttribute name="_content_signup" />
+			</div>
+			<div class="col-lg-2"></div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12">

@@ -21,34 +21,39 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DOMMemberController {
 
-	@RequestMapping(value = "/login")
-	public ModelAndView viewLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/signup")
+	public ModelAndView viewSignup(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		ModelAndView mav = new ModelAndView("");
 
-		mav.setViewName("member/viewLogin");
-
-		return mav;
-	}
-
-	@RequestMapping(value = "/loginCheck")
-	public ModelAndView checkLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		ModelAndView mav = new ModelAndView("");
-
+		/*
+		 * 1] ...
+		 * 2] user token generation....
+		 */
 		mav.setViewName("sample/viewSample");
 
 		return mav;
 	}
 
-	@RequestMapping(value = "/logout")
-	public ModelAndView viewLogout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/signin")
+	public ModelAndView viewSignin(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		ModelAndView mav = new ModelAndView("");
 
-		mav.setViewName("member/viewLogout");
+		mav.setViewName("member/viewSignin");
 
 		return mav;
 	}
+/*
 
+	@RequestMapping(value = "/signout")
+	public ModelAndView viewSignout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		ModelAndView mav = new ModelAndView("");
+
+		mav.setViewName("member/viewSignout");
+
+		return mav;
+	}
+*/
 }

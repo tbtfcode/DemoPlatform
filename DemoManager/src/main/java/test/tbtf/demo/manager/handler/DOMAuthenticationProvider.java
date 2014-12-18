@@ -11,8 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import test.tbtf.demo.manager.member.domain.DOMUser;
+import org.springframework.security.core.userdetails.User;
 
 /**
  * @project DemoManager
@@ -54,12 +53,7 @@ public class DOMAuthenticationProvider implements AuthenticationProvider {
 
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(principal, credentials, grantedAuthorities);
 
-		DOMUser user = new DOMUser();
-		user.setPrincipal(principal);
-		user.setCredentials(credentials);
-		user.setAuthorities(grantedAuthorities);
-
-		authenticationToken.setDetails(new DOMUser());
+		authenticationToken.setDetails(new User(principal, credentials, grantedAuthorities));
 
 		return authenticationToken;
 
