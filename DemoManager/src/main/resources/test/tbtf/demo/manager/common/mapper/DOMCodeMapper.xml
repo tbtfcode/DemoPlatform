@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+          "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.tbtf.demo.manager.common.dao.DOMCodeDAO">
+
+	<select id="selectCode" parameterType="test.tbtf.demo.manager.common.domain.DOMCode" 
+	                           resultType="test.tbtf.demo.manager.common.domain.DOMCode">
+SELECT /* DOMCodeDAO.selectCode */
+        CODE_GROUP_ID    AS codeGroupId
+       ,CODE_ID          AS codeId
+       ,CODE_NAME        AS codeName
+       ,CODE_DESCRIPTION AS codeDescription
+       ,CODE_SEQUENCE    AS codeSequence
+       ,INSERT_USER_ID     AS insertUserId
+       ,INSERT_DATE        AS insertDate
+       ,UPDATE_USER_ID     AS updateUserId
+       ,UPDATE_DATE        AS updateDate
+       ,DELETE_YN          AS deleteYn
+  FROM  TBL_CODE
+ WHERE  DELETE_YN = 'N'
+   AND  CODE_GROUP_ID = #{codeGroupId}
+   AND  CODE_ID = #{codeId}
+
+	</select>
+
+	<insert id="insertCode" parameterType="test.tbtf.demo.manager.common.domain.DOMCode">
+INSERT /* DOMCodeDAO.insertCode */
+  INTO  TBL_CODE (
+ CODE_GROUP_ID
+,CODE_ID
+,CODE_NAME
+,CODE_DESCRIPTION
+,CODE_SEQUENCE
+,INSERT_USER_ID
+,INSERT_DATE
+,UPDATE_USER_ID
+,UPDATE_DATE
+,DELETE_YN
+) VALUES (
+ #{codeGroupId}
+,#{codeId}
+,#{codeName}
+,#{codeDescription}
+,#{codeSequence}
+,#{insertUserId}
+,NOW()
+,#{updateUserId}
+,NOW()
+,'N'
+)
+
+	</insert>
+
+	<update id="updateCode" parameterType="test.tbtf.demo.manager.common.domain.DOMCode">
+UPDATE /* DOMCodeDAO.updateCode */
+        TBL_CODE
+   SET  CODE_NAME = #{codeName}
+       ,CODE_DESCRIPTION = #{codeDescription}
+       ,CODE_SEQUENCE = #{codeSequence}
+       ,UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+ WHERE  DELETE_YN = 'N'
+   AND  CODE_GROUP_ID = #{codeGroupId}
+   AND  CODE_ID = #{codeId}
+
+	</update>
+
+	<update id="deleteCode" parameterType="test.tbtf.demo.manager.common.domain.DOMCode">
+UPDATE /* DOMCodeDAO.deleteCode */
+        TBL_CODE
+   SET  UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+       ,DELETE_YN = 'Y'
+ WHERE  DELETE_YN = 'N'
+   AND  CODE_GROUP_ID = #{codeGroupId}
+   AND  CODE_ID = #{codeId}
+
+	</update>
+
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+          "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.tbtf.demo.manager.member.dao.DOMUserAdditionDAO">
+
+	<select id="selectUserAddition" parameterType="test.tbtf.demo.manager.member.domain.DOMUserAddition" 
+	                                   resultType="test.tbtf.demo.manager.member.domain.DOMUserAddition">
+SELECT /* DOMUserAdditionDAO.selectUserAddition */
+        USER_ID              AS userId
+       ,USER_ATTRIBUTE_KEY   AS userAttributeKey
+       ,USER_ATTRIBUTE_VALUE AS userAttributeValue
+       ,INSERT_USER_ID     AS insertUserId
+       ,INSERT_DATE        AS insertDate
+       ,UPDATE_USER_ID     AS updateUserId
+       ,UPDATE_DATE        AS updateDate
+       ,DELETE_YN          AS deleteYn
+  FROM  TBL_USER_ADDITION
+ WHERE  DELETE_YN = 'N'
+   AND  USER_ID = #{userId}
+
+	</select>
+
+	<insert id="insertUserAddition" parameterType="test.tbtf.demo.manager.member.domain.DOMUserAddition">
+INSERT /* DOMUserAdditionDAO.insertUserAddition */
+  INTO  TBL_USER_ADDITION (
+ USER_ID
+,USER_ATTRIBUTE_KEY
+,USER_ATTRIBUTE_VALUE
+,INSERT_USER_ID
+,INSERT_DATE
+,UPDATE_USER_ID
+,UPDATE_DATE
+,DELETE_YN
+) VALUES (
+ #{userId}
+,#{userAttributeKey}
+,#{userAttributeValue}
+,#{insertUserId}
+,NOW()
+,#{updateUserId}
+,NOW()
+,'N'
+)
+
+	</insert>
+
+	<update id="updateUserAddition" parameterType="test.tbtf.demo.manager.member.domain.DOMUserAddition">
+UPDATE /* DOMUserAdditionDAO.updateUserAddition */
+        TBL_USER_ADDITION
+   SET  USER_ATTRIBUTE_KEY = #{userAttributeKey}
+       ,USER_ATTRIBUTE_VALUE = #{userAttributeValue}
+       ,UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+ WHERE  DELETE_YN = 'N'
+   AND  USER_ID = #{userId}
+
+	</update>
+
+	<update id="deleteUserAddition" parameterType="test.tbtf.demo.manager.member.domain.DOMUserAddition">
+UPDATE /* DOMUserAdditionDAO.deleteUserAddition */
+        TBL_USER_ADDITION
+   SET  UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+       ,DELETE_YN = 'Y'
+ WHERE  DELETE_YN = 'N'
+   AND  USER_ID = #{userId}
+
+	</update>
+
+</mapper>

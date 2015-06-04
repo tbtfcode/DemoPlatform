@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+          "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.tbtf.demo.manager.common.dao.DOMMenuDAO">
+
+	<select id="selectMenu" parameterType="test.tbtf.demo.manager.common.domain.DOMMenu" 
+	                           resultType="test.tbtf.demo.manager.common.domain.DOMMenu">
+SELECT /* DOMMenuDAO.selectMenu */
+        MENU_GROUP_ID    AS menuGroupId
+       ,MENU_ID          AS menuId
+       ,MENU_NAME        AS menuName
+       ,MENU_DESCRIPTION AS menuDescription
+       ,MENU_SEQUENCE    AS menuSequence
+       ,INSERT_USER_ID     AS insertUserId
+       ,INSERT_DATE        AS insertDate
+       ,UPDATE_USER_ID     AS updateUserId
+       ,UPDATE_DATE        AS updateDate
+       ,DELETE_YN          AS deleteYn
+  FROM  TBL_MENU
+ WHERE  DELETE_YN = 'N'
+   AND  MENU_GROUP_ID = #{menuGroupId}
+   AND  MENU_ID = #{menuId}
+
+	</select>
+
+	<insert id="insertMenu" parameterType="test.tbtf.demo.manager.common.domain.DOMMenu">
+INSERT /* DOMMenuDAO.insertMenu */
+  INTO  TBL_MENU (
+ MENU_GROUP_ID
+,MENU_ID
+,MENU_NAME
+,MENU_DESCRIPTION
+,MENU_SEQUENCE
+,INSERT_USER_ID
+,INSERT_DATE
+,UPDATE_USER_ID
+,UPDATE_DATE
+,DELETE_YN
+) VALUES (
+ #{menuGroupId}
+,#{menuId}
+,#{menuName}
+,#{menuDescription}
+,#{menuSequence}
+,#{insertUserId}
+,NOW()
+,#{updateUserId}
+,NOW()
+,'N'
+)
+
+	</insert>
+
+	<update id="updateMenu" parameterType="test.tbtf.demo.manager.common.domain.DOMMenu">
+UPDATE /* DOMMenuDAO.updateMenu */
+        TBL_MENU
+   SET  MENU_NAME = #{menuName}
+       ,MENU_DESCRIPTION = #{menuDescription}
+       ,MENU_SEQUENCE = #{menuSequence}
+       ,UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+ WHERE  DELETE_YN = 'N'
+   AND  MENU_GROUP_ID = #{menuGroupId}
+   AND  MENU_ID = #{menuId}
+
+	</update>
+
+	<update id="deleteMenu" parameterType="test.tbtf.demo.manager.common.domain.DOMMenu">
+UPDATE /* DOMMenuDAO.deleteMenu */
+        TBL_MENU
+   SET  UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+       ,DELETE_YN = 'Y'
+ WHERE  DELETE_YN = 'N'
+   AND  MENU_GROUP_ID = #{menuGroupId}
+   AND  MENU_ID = #{menuId}
+
+	</update>
+
+</mapper>

@@ -3,7 +3,7 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
 	<appender name="TRACE_LOGGER" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="${env.logging.path}/log/demo.manage.TRACE.log" />
+		<param name="File" value="${env.logging.path}/demo.manage.TRACE.log" />
 		<param name="Append" value="true" />
 		<param name="Threshold" value="DEBUG" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />

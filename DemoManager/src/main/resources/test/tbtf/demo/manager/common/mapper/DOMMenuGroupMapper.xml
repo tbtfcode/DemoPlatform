@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+          "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.tbtf.demo.manager.common.dao.DOMMenuGroupDAO">
+
+	<select id="selectMenuGroup" parameterType="test.tbtf.demo.manager.common.domain.DOMMenuGroup" 
+	                                resultType="test.tbtf.demo.manager.common.domain.DOMMenuGroup">
+SELECT /* DOMMenuGroupDAO.selectMenuGroup */
+        MENU_GROUP_ID          AS menuGroupId
+       ,MENU_GROUP_NAME        AS menuGroupName
+       ,MENU_GROUP_DESCRIPTION AS menuGroupDescription
+       ,MENU_GROUP_SEQUENCE    AS menuGroupSequence
+       ,INSERT_USER_ID     AS insertUserId
+       ,INSERT_DATE        AS insertDate
+       ,UPDATE_USER_ID     AS updateUserId
+       ,UPDATE_DATE        AS updateDate
+       ,DELETE_YN          AS deleteYn
+  FROM  TBL_MENU_GROUP
+ WHERE  DELETE_YN = 'N'
+   AND  MENU_GROUP_ID = #{menuGroupId}
+
+	</select>
+
+	<insert id="insertMenuGroup" parameterType="test.tbtf.demo.manager.common.domain.DOMMenuGroup">
+INSERT /* DOMMenuGroupDAO.insertMenuGroup */
+  INTO  TBL_MENU_GROUP (
+ MENU_GROUP_ID
+,MENU_GROUP_NAME
+,MENU_GROUP_DESCRIPTION
+,MENU_GROUP_SEQUENCE
+,INSERT_USER_ID
+,INSERT_DATE
+,UPDATE_USER_ID
+,UPDATE_DATE
+,DELETE_YN
+) VALUES (
+ #{menuGroupId}
+,#{menuGroupName}
+,#{menuGroupDescription}
+,#{menuGroupSequence}
+,#{insertUserId}
+,NOW()
+,#{updateUserId}
+,NOW()
+,'N'
+)
+
+	</insert>
+
+	<update id="updateMenuGroup" parameterType="test.tbtf.demo.manager.common.domain.DOMMenuGroup">
+UPDATE /* DOMMenuGroupDAO.updateMenuGroup */
+        TBL_MENU_GROUP
+   SET  MENU_GROUP_NAME = #{menuGroupName}
+       ,MENU_GROUP_DESCRIPTION = #{menuGroupDescription}
+       ,MENU_GROUP_SEQUENCE = #{menuGroupSequence}
+       ,UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+ WHERE  DELETE_YN = 'N'
+   AND  MENU_GROUP_ID = #{menuGroupId}
+
+	</update>
+
+	<update id="deleteMenuGroup" parameterType="test.tbtf.demo.manager.common.domain.DOMMenuGroup">
+UPDATE /* DOMMenuGroupDAO.deleteMenuGroup */
+        TBL_MENU_GROUP
+   SET  UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+       ,DELETE_YN = 'Y'
+ WHERE  DELETE_YN = 'N'
+   AND  MENU_GROUP_ID = #{menuGroupId}
+
+	</update>
+
+</mapper>

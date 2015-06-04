@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+          "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.tbtf.demo.manager.member.dao.DOMUserGroupDAO">
+
+	<select id="selectUserGroup" parameterType="test.tbtf.demo.manager.member.domain.DOMUserGroup" 
+	                                resultType="test.tbtf.demo.manager.member.domain.DOMUserGroup">
+SELECT /* DOMUserGroupDAO.selectUserGroup */
+        USER_GROUP_PARENT_ID   AS userGroupParentId
+       ,USER_GROUP_ID          AS userGroupId
+       ,USER_GROUP_NAME        AS userGroupName
+       ,USER_GROUP_DESCRIPTION AS userGroupDescription
+       ,USER_GROUP_SEQUENCE    AS userGroupSequence
+       ,USER_GROUP_TYPE        AS userGroupType
+       ,INSERT_USER_ID     AS insertUserId
+       ,INSERT_DATE        AS insertDate
+       ,UPDATE_USER_ID     AS updateUserId
+       ,UPDATE_DATE        AS updateDate
+       ,DELETE_YN          AS deleteYn
+  FROM  TBL_USER_GROUP
+ WHERE  DELETE_YN = 'N'
+   AND  USER_GROUP_PARENT_ID = #{userGroupParentId}
+   AND  USER_GROUP_ID = #{userGroupId}
+
+	</select>
+
+	<insert id="insertUserGroup" parameterType="test.tbtf.demo.manager.member.domain.DOMUserGroup">
+INSERT /* DOMUserGroupDAO.insertUserGroup */
+  INTO  TBL_USER_GROUP (
+ USER_GROUP_PARENT_ID
+,USER_GROUP_ID
+,USER_GROUP_NAME
+,USER_GROUP_DESCRIPTION
+,USER_GROUP_SEQUENCE
+,USER_GROUP_TYPE
+,INSERT_USER_ID
+,INSERT_DATE
+,UPDATE_USER_ID
+,UPDATE_DATE
+,DELETE_YN
+) VALUES (
+ #{userGroupParentId}
+,#{userGroupId}
+,#{userGroupName}
+,#{userGroupDescription}
+,#{userGroupSequence}
+,#{userGroupType}
+,#{insertUserId}
+,NOW()
+,#{updateUserId}
+,NOW()
+,'N'
+)
+
+	</insert>
+
+	<update id="updateUserGroup" parameterType="test.tbtf.demo.manager.member.domain.DOMUserGroup">
+UPDATE /* DOMUserGroupDAO.updateUserGroup */
+        TBL_USER_GROUP
+   SET  USER_GROUP_NAME = #{userGroupName}
+       ,USER_GROUP_DESCRIPTION = #{userGroupDescription}
+       ,USER_GROUP_SEQUENCE = #{userGroupSequence}
+       ,USER_GROUP_TYPE = #{userGroupType}
+       ,UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+ WHERE  DELETE_YN = 'N'
+   AND  USER_GROUP_PARENT_ID = #{userGroupParentId}
+   AND  USER_GROUP_ID = #{userGroupId}
+
+	</update>
+
+	<update id="deleteUserGroup" parameterType="test.tbtf.demo.manager.member.domain.DOMUserGroup">
+UPDATE /* DOMUserGroupDAO.deleteUserGroup */
+        TBL_USER_GROUP
+   SET  UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+       ,DELETE_YN = 'Y'
+ WHERE  DELETE_YN = 'N'
+   AND  USER_GROUP_PARENT_ID = #{userGroupParentId}
+   AND  USER_GROUP_ID = #{userGroupId}
+
+	</update>
+
+</mapper>

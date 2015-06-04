@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+          "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.tbtf.demo.manager.common.dao.DOMCodeGroupDAO">
+
+	<select id="selectCodeGroup" parameterType="test.tbtf.demo.manager.common.domain.DOMCodeGroup" 
+	                                resultType="test.tbtf.demo.manager.common.domain.DOMCodeGroup">
+SELECT /* DOMCodeGroupDAO.selectCodeGroup */
+        CODE_GROUP_ID          AS codeGroupId
+       ,CODE_GROUP_NAME        AS codeGroupName
+       ,CODE_GROUP_DESCRIPTION AS codeGroupDescription
+       ,CODE_GROUP_COLUMN      AS codeGroupColumn
+       ,INSERT_USER_ID     AS insertUserId
+       ,INSERT_DATE        AS insertDate
+       ,UPDATE_USER_ID     AS updateUserId
+       ,UPDATE_DATE        AS updateDate
+       ,DELETE_YN          AS deleteYn
+  FROM  TBL_CODE_GROUP
+ WHERE  DELETE_YN = 'N'
+   AND  CODE_GROUP_ID = #{codeGroupId}
+
+	</select>
+
+	<insert id="insertCodeGroup" parameterType="test.tbtf.demo.manager.common.domain.DOMCodeGroup">
+INSERT /* DOMCodeGroupDAO.insertCodeGroup */
+  INTO  TBL_CODE_GROUP (
+ CODE_GROUP_ID
+,CODE_GROUP_NAME
+,CODE_GROUP_DESCRIPTION
+,CODE_GROUP_COLUMN
+,INSERT_USER_ID
+,INSERT_DATE
+,UPDATE_USER_ID
+,UPDATE_DATE
+,DELETE_YN
+) VALUES (
+ #{codeGroupId}
+,#{codeGroupName}
+,#{codeGroupDescription}
+,#{codeGroupColumn}
+,#{insertUserId}
+,NOW()
+,#{updateUserId}
+,NOW()
+,'N'
+)
+
+	</insert>
+
+	<update id="updateCodeGroup" parameterType="test.tbtf.demo.manager.common.domain.DOMCodeGroup">
+UPDATE /* DOMCodeGroupDAO.updateCodeGroup */
+        TBL_CODE_GROUP
+   SET  CODE_GROUP_NAME = #{codeGroupName}
+       ,CODE_GROUP_DESCRIPTION = #{codeGroupDescription}
+       ,CODE_GROUP_COLUMN = #{codeGroupColumn}
+       ,UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+ WHERE  DELETE_YN = 'N'
+   AND  CODE_GROUP_ID = #{codeGroupId}
+
+	</update>
+
+	<update id="deleteCodeGroup" parameterType="test.tbtf.demo.manager.common.domain.DOMCodeGroup">
+UPDATE /* DOMCodeGroupDAO.deleteCodeGroup */
+        TBL_CODE_GROUP
+   SET  UPDATE_USER_ID = #{updateUserId}
+       ,UPDATE_DATE = NOW()
+       ,DELETE_YN = 'Y'
+ WHERE  DELETE_YN = 'N'
+   AND  CODE_GROUP_ID = #{codeGroupId}
+
+	</update>
+
+</mapper>
