@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+
+	<bean id="taskExecutor" class="org.springframework.core.task.SimpleAsyncTaskExecutor" />
+
+	<bean id="helloWorldPartitioner" class="test.tbtf.demo.batch.helloworld.HelloWorldPartitioner" scope="step">
+		<property name="requestThreadGroup" value="#{jobParameters['request_thread_group']}" />
+		<property name="requestTotalValue" value="#{jobParameters['request_total_value']}" /> 
+	</bean>
+
+	<bean id="helloWorldItemReader" class="test.tbtf.demo.batch.helloworld.HelloWorldItemReader" />
+	<bean id="helloWorldItemWriter" class="test.tbtf.demo.batch.helloworld.HelloWorldItemWriter" />
+
+	<batch:step id="helloWorldStep">
+		<batch:tasklet>
+			<batch:chunk reader="helloWorldItemReader" writer="helloWorldItemWriter" commit-interval="10" />
+		</batch:tasklet>
+	</batch:step>
+
+	<batch:job id="helloWorldJob">
+		<batch:step id="helloWorldStep.master">
+			<batch:partition step="helloWorldStep" partitioner="helloWorldPartitioner">
+				<batch:handler grid-size="10" task-executor="taskExecutor" />
+			</batch:partition>
+		</batch:step>
+	</batch:job>
+
+</beans>

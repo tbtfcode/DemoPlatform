@@ -36,9 +36,14 @@
 
 	<dependencies>
 		<dependency>
-		<groupId>org.springframework.batch</groupId>
-		<artifactId>spring-batch-core</artifactId>
-		<version>3.0.7.RELEASE</version>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-core</artifactId>
+			<version>3.0.7.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>4.0.5.RELEASE</version>
 		</dependency>
 	</dependencies>
 
